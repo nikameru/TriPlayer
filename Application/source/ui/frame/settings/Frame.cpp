@@ -68,4 +68,22 @@ namespace Frame::Settings {
         }
         return false;
     }
+
+    bool Frame::getStringInput(std::string & buf, const std::string & heading = "", const std::string & sub = "", const std::string hint = "") {
+        // Configure and open keyboard
+        Utils::NX::Keyboard keyboard;
+        keyboard.buffer = buf;
+        keyboard.maxLength = 32;
+        keyboard.ok = "OK";
+        keyboard.showLine = true;
+        keyboard.heading = heading;
+        keyboard.subHeading = sub;
+        keyboard.hint = hint;
+        if (Utils::NX::getUserInput(keyboard))
+        {
+            buf = keyboard.buffer;
+            return true;
+        }
+        return false;
+    }
 };

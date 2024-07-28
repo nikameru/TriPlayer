@@ -28,6 +28,9 @@ void Config::readConfig() {
         Log::writeError("[CONFIG] Failed to get .ini version");
     }
 
+    // General::yandex_music_token
+    this->yandexMusicToken_ = this->ini->gets("General", "yandex_music_token");
+
     // General::confirm_clear_queue
     this->confirmClearQueue_ = this->ini->getbool("General", "confirm_clear_queue");
 
@@ -194,6 +197,20 @@ bool Config::setVersion(const int v) {
         Log::writeError("[CONFIG] Failed to set .ini version");
     } else {
         this->version_ = v;
+    }
+    return ok;
+}
+
+std::string Config::yandexMusicToken() {
+    return this->yandexMusicToken_;
+}
+
+bool Config::setYandexMusicToken(const std::string str) {
+    bool ok = this->ini->put("General", "yandex_music_token", str);
+    if (!ok) {
+        Log::writeError("[CONFIG] Failed to set yandex_music_token");
+    } else {
+        this->yandexMusicToken_ = str;
     }
     return ok;
 }

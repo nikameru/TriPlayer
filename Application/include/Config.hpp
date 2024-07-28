@@ -23,6 +23,7 @@ class Config {
         // Cache of each key/value (read in on construction)
         int version_;
 
+        std::string yandexMusicToken_;
         bool confirmClearQueue_;
         bool confirmExit_;
         Frame::Type initialFrame_;
@@ -60,6 +61,10 @@ class Config {
         // Version of the .ini (-1 by default)
         int version();
         bool setVersion(const int);
+
+        // API Token for Yandex Music
+        std::string yandexMusicToken();
+        bool setYandexMusicToken(const std::string str);
 
         // Confirm clearing queue when playing a new song
         bool confirmClearQueue();

@@ -36,6 +36,21 @@ namespace Frame::Settings {
         Config * cfg = this->app->config();
         Aether::ListOption * opt;
 
+        // General::yandex_music_token
+        opt = new Aether::ListOption("Yandex Music token", cfg->yandexMusicToken(), nullptr);
+        opt->onPress([this, cfg, opt]() {
+            std::string val = cfg->yandexMusicToken();
+            if (this->getStringInput(val, "Enter your token here", "", "token")) {
+                Log::writeWarning("[SETTINGS/YANDEX] Received token: " + val);
+                printf("[SETTINGS/YANDEX] Received token: %s\n", val.c_str());
+                if (cfg->setYandexMusicToken(val)) {
+                    opt->setValue(val);
+                }
+            }
+        });
+        opt->setColours(this->app->theme()->muted2(), this->app->theme()->FG(), this->app->theme()->accent());
+        this->list->addElement(opt);
+
         // General::confirm_clear_queue
         this->addToggle("Settings.AppGeneral.ConfirmClearingQueue"_lang, [cfg]() -> bool {
             return cfg->confirmClearQueue();
